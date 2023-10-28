@@ -1,5 +1,11 @@
 import Contact from './Contact';
 import PropTypes from 'prop-types';
+import Firestore from '@google-cloud/firestore';
+
+const firestore = new Firestore({
+  keyFilename: import.meta.env.GOOGLE_APPLICATION_CREDENTIALS,
+});
+
 const ContactList = ({ contacts }) => {
   return (
     <div className="contact-list">

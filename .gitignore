@@ -11,6 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
+.env
+brave-server-401207-7cbb43f0a0cc.json
 
 # Editor directories and files
 .vscode/*
