@@ -16,7 +16,7 @@ const Contact = ({ name, lastMessage }) => {
 
 Contact.propTypes = {
   name: PropTypes.string.isRequired,
-  lastMessage: PropTypes.string.isRequired,
+  lastMessage: PropTypes.string,
 };
 
 export default Contact;

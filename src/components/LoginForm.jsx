@@ -1,7 +1,9 @@
-import axiosInstance from './api';
+import axiosInstance from '../api';
 import Cookies from 'js-cookie';
 
 import { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +12,8 @@ const LoginForm = () => {
   });
 
   const [error, setError] = useState('');
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,6 +38,11 @@ const LoginForm = () => {
 
       const token = response.data.token;
       Cookies.set('userToken', token);
+
+      // Set auth to logged in
+      login(formData.username);
+
+      navigate('/chat');
 
       console.log('Logged in');
     } catch (error) {

@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import axiosInstance from './api';
+import axiosInstance from '../api';
 import Cookies from 'js-cookie';
 
 import { useReducer, useState } from 'react';
