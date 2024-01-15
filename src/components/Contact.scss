@@ -1,0 +1,43 @@
+.contact {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  margin-bottom: 0.5rem;
+  min-width: 15rem;
+
+  .contact-info {
+    flex: 1;
+    text-align: left;
+    flex-direction: column;
+
+    h3 {
+      margin: 0;
+    }
+
+    .unread-info {
+      display: flex;
+      gap: 1.5rem;
+
+      .message {
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        max-width: 10rem;
+        overflow: hidden;
+      }
+
+      .circle {
+        width: 25px;
+        height: 25px;
+        background-color: rgb(43, 40, 132);
+        border-radius: 50%;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+.chat-box {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1rem;
+
+  textarea {
+    width: 70vw;
+    height: 5vh;
+    text-align: left;
+    vertical-align: middle;
+    resize: none;
+    padding: 0.5rem;
+  }
+
+  button {
+    width: 5vw;
+    height: 7vh;
+    vertical-align: middle;
+  }
+
+  em-emoji-picker {
+    position: absolute;
+    bottom: 9%;
+    left: 71vw;
+    z-index: 1000;
+  }
+}

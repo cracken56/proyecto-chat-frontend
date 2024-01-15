@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
-    username: '',
+    user: '',
     password: '',
   });
 
@@ -30,7 +30,7 @@ const LoginForm = () => {
       setError('');
 
       const requestData = {
-        user: formData.username,
+        user: formData.user,
         password: formData.password,
       };
 
@@ -40,7 +40,7 @@ const LoginForm = () => {
       Cookies.set('userToken', token);
 
       // Set auth to logged in
-      login(formData.username);
+      login(formData.user);
 
       navigate('/chat');
 
@@ -69,12 +69,12 @@ const LoginForm = () => {
     <div>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="username">Usuario</label>
+          <label htmlFor="user">Usuario</label>
           <input
             type="text"
-            id="username"
-            name="username"
-            value={formData.username}
+            id="user"
+            name="user"
+            value={formData.user}
             onChange={handleChange}
             required
           />

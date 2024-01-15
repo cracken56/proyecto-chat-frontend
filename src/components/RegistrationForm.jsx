@@ -7,7 +7,7 @@ import { useReducer, useState } from 'react';
 const formReducer = (state, action) => {
   const actions = {
     SET_FIELD: { ...state, [action.field]: action.value },
-    RESET_FORM: { username: '', password: '', confirmPassword: '' },
+    RESET_FORM: { user: '', password: '', confirmPassword: '' },
   };
 
   return actions[action.type] || state;
@@ -15,7 +15,7 @@ const formReducer = (state, action) => {
 
 const RegistrationForm = () => {
   const [formData, dispatch] = useReducer(formReducer, {
-    username: '',
+    user: '',
     password: '',
     confirmPassword: '',
   });
@@ -39,7 +39,7 @@ const RegistrationForm = () => {
 
       const hashedPassword = await bcrypt.hash(formData.password, 10);
       const requestData = {
-        user: formData.username,
+        user: formData.user,
         hashedPassword,
       };
 
@@ -77,12 +77,12 @@ const RegistrationForm = () => {
     <div className="registration-form">
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="username">Username</label>
+          <label htmlFor="user">user</label>
           <input
             type="text"
-            id="username"
-            name="username"
-            value={formData.username}
+            id="user"
+            name="user"
+            value={formData.user}
             onChange={handleChange}
             required
           />

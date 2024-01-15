@@ -3,18 +3,23 @@ import { createContext, useContext, useReducer } from 'react';
 
 const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
+const SET_CONTACT = 'SET_CONTACT';
 
 const authReducer = (state, action) => {
   const actionHandlers = {
     [LOGIN]: () => ({
       ...state,
       isAuthenticated: true,
-      username: action.payload.username,
+      user: action.payload.user,
     }),
     [LOGOUT]: () => ({
       ...state,
       isAuthenticated: false,
-      username: null,
+      user: null,
+    }),
+    [SET_CONTACT]: () => ({
+      ...state,
+      contact: action.payload.contact,
     }),
     // Add more action handlers if needed
   };
@@ -28,22 +33,26 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const initialState = {
     isAuthenticated: false,
-    username: null,
+    user: null,
   };
 
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  const login = (username) => {
+  const login = (user) => {
     console.log('Auth true');
-    dispatch({ type: LOGIN, payload: { username } });
+    dispatch({ type: LOGIN, payload: { user } });
   };
 
   const logout = () => {
     dispatch({ type: LOGOUT });
   };
 
+  const setContact = (contact) => {
+    dispatch({ type: SET_CONTACT, payload: { contact } });
+  };
+
   return (
-    <AuthContext.Provider value={{ ...state, login, logout }}>
+    <AuthContext.Provider value={{ ...state, login, logout, setContact }}>
       {children}
     </AuthContext.Provider>
   );
