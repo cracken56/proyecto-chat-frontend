@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axiosInstance from '../api';
 import emojiData from '@emoji-mart/data';
 import Picker from '@emoji-mart/react';
@@ -9,8 +9,10 @@ import './ChatBox.scss';
 const ChatBox = ({ conversationId, sender, contact }) => {
   const [text, setText] = useState('');
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [typing, setTyping] = useState(false);
 
   const handleMessageChange = (e) => {
+    e.target.value ? setTyping(true) : setTyping(false);
     setText(e.target.value);
   };
 
@@ -22,19 +24,19 @@ const ChatBox = ({ conversationId, sender, contact }) => {
         conversationId,
         message: { text, sender, readBy: { [sender]: true, [contact]: false } },
       };
-      console.log(data);
 
       const response = await axiosInstance.put('/api/message', data);
-      console.log(response);
-    } catch (error) {
-      if (error.response) {
-        const { status } = error.response;
+
+      if (response.data.error) {
+        const status = response.status;
         if (status === 404) {
           console.log('La conversación no existe.');
         } else if (status === 500) {
           console.log('No se ha podido mandar el mensaje.');
         }
       }
+    } catch (error) {
+      console.log(error);
     }
 
     // Clear the input field after sending the message
@@ -58,6 +60,31 @@ const ChatBox = ({ conversationId, sender, contact }) => {
     setText(text + emoji.native);
   };
 
+  useEffect(() => {
+    const sendTyping = async () => {
+      try {
+        const response = await axiosInstance.put('/api/typing', {
+          conversationId,
+          user: sender,
+          typing,
+        });
+
+        if (response.data.error) {
+          const status = response.status;
+          if (status === 404) {
+            console.log('La conversación no existe.');
+          } else if (status === 500) {
+            console.log('No se ha podido mandar el estado "escribiendo".');
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    sendTyping();
+  }, [conversationId, sender, typing]);
+
   return (
     <div className="chat-box">
       <div>
@@ -69,7 +96,7 @@ const ChatBox = ({ conversationId, sender, contact }) => {
           placeholder="Escribe un mensaje..."
         />
         <button onClick={handleEmojiButtonClick}>😊</button>
-        <button onClick={handleSendMessage}>Send</button>
+        <button onClick={handleSendMessage}>Enviar</button>
       </div>
       {showEmojiPicker && (
         <Picker data={emojiData} onEmojiSelect={handleEmojiSelect} />

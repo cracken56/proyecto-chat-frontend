@@ -20,6 +20,7 @@ import './Chat.scss';
 const Chat = () => {
   const chatContainerRef = useRef();
   const [messages, setMessages] = useState([]);
+  const [typing, setTyping] = useState(false);
   const [conversation, setConversation] = useState(undefined);
   const { user, contact } = useAuth();
 
@@ -47,8 +48,9 @@ const Chat = () => {
 
           unsubscribe = onSnapshot(conversationRef, (snapshot) => {
             const messages = snapshot.data().messages;
-
+            const typing = snapshot.data().typing[contact];
             setMessages(messages);
+            setTyping(typing);
           });
         }
       } catch (error) {
@@ -127,6 +129,9 @@ const Chat = () => {
               </div>
             ))}
           </div>
+          {typing && (
+            <span className="typing">{contact} está escribiendo...</span>
+          )}
           <ChatBox
             conversationId={conversation}
             sender={user}

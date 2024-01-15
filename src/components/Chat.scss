@@ -9,6 +9,13 @@
     font-size: 1.5rem;
     color: #757575;
   }
+
+  .typing {
+    position: absolute;
+    bottom: 8%;
+    left: 13.8vw;
+    z-index: 1000;
+  }
 }
 
 .chat {
