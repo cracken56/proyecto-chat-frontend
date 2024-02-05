@@ -27,7 +27,8 @@ const LoginPage = () => {
           <h2>Registrarse</h2>
           <RegistrationForm />
           <p>
-            Ya tienes cuenta? <button onClick={handleToggleForm}></button>
+            Ya tienes cuenta?{' '}
+            <button onClick={handleToggleForm}>Iniciar sesión</button>
           </p>
         </div>
       )}
