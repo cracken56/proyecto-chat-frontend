@@ -29,6 +29,8 @@ const ContactList = () => {
         unsubscribe = onSnapshot(userDocRef, (snapshot) => {
           if (snapshot.exists()) {
             const contacts = snapshot.data().contacts;
+            if (!contacts.length) return;
+
             const contactsArray = contacts.map((user) => ({ name: user }));
             setContacts(contactsArray);
           }
@@ -49,9 +51,10 @@ const ContactList = () => {
 
   return (
     <div className="contact-list">
-      {contacts.map((contact, index) => (
-        <Contact key={index} name={contact.name} />
-      ))}
+      {contacts &&
+        contacts.map((contact, index) => (
+          <Contact key={index} name={contact.name} />
+        ))}
     </div>
   );
 };
