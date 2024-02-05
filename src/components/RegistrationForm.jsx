@@ -3,17 +3,18 @@ import axiosInstance from '../api';
 import Cookies from 'js-cookie';
 
 import { useReducer, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const formReducer = (state, action) => {
   const actions = {
     SET_FIELD: { ...state, [action.field]: action.value },
-    RESET_FORM: { user: '', password: '', confirmPassword: '' },
   };
 
   return actions[action.type] || state;
 };
 
 const RegistrationForm = () => {
+  const navigate = useNavigate();
   const [formData, dispatch] = useReducer(formReducer, {
     user: '',
     password: '',
@@ -48,11 +49,7 @@ const RegistrationForm = () => {
       const token = response.data.token;
       Cookies.set('userToken', token);
 
-      // Redirect to another page or perform other actions
-      // ...
-
-      // Reset the form or perform any additional actions here
-      dispatch({ type: 'RESET_FORM' });
+      navigate('/chat');
     } catch (error) {
       if (error.response) {
         const { status } = error.response;
@@ -77,7 +74,7 @@ const RegistrationForm = () => {
     <div className="registration-form">
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="user">user</label>
+          <label htmlFor="user">Usuario: </label>
           <input
             type="text"
             id="user"
@@ -89,7 +86,7 @@ const RegistrationForm = () => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">Contraseña: </label>
           <input
             type="password"
             id="password"
@@ -101,7 +98,7 @@ const RegistrationForm = () => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="confirmPassword">Confirm Password</label>
+          <label htmlFor="confirmPassword">Confirmar contraseña: </label>
           <input
             type="password"
             id="confirmPassword"
@@ -114,7 +111,7 @@ const RegistrationForm = () => {
 
         {error && <div className="error-message">{error}</div>}
 
-        <button type="submit">Register</button>
+        <button type="submit">Registrarse</button>
       </form>
     </div>
   );

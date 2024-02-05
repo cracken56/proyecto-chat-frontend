@@ -15,11 +15,11 @@ const LoginPage = () => {
       <h1>Bienvenid@</h1>
       {showLogin ? (
         <div>
-          <h2>Login</h2>
+          <h2>Conectarse</h2>
           <LoginForm />
           <p>
             No tienes cuenta?{' '}
-            <button onClick={handleToggleForm}>Register</button>
+            <button onClick={handleToggleForm}>Registrarse</button>
           </p>
         </div>
       ) : (
@@ -27,7 +27,7 @@ const LoginPage = () => {
           <h2>Registrarse</h2>
           <RegistrationForm />
           <p>
-            Ya tienes cuenta? <button onClick={handleToggleForm}>Login</button>
+            Ya tienes cuenta? <button onClick={handleToggleForm}></button>
           </p>
         </div>
       )}

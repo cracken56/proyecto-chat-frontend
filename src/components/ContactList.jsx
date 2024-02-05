@@ -29,7 +29,7 @@ const ContactList = () => {
         unsubscribe = onSnapshot(userDocRef, (snapshot) => {
           if (snapshot.exists()) {
             const contacts = snapshot.data().contacts;
-            if (!contacts.length) return;
+            if (!contacts) return;
 
             const contactsArray = contacts.map((user) => ({ name: user }));
             setContacts(contactsArray);

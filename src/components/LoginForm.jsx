@@ -43,8 +43,6 @@ const LoginForm = () => {
       login(formData.user);
 
       navigate('/chat');
-
-      console.log('Logged in');
     } catch (error) {
       if (error.response) {
         const { status } = error.response;
@@ -69,7 +67,7 @@ const LoginForm = () => {
     <div>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="user">Usuario</label>
+          <label htmlFor="user">Usuario: </label>
           <input
             type="text"
             id="user"
@@ -81,7 +79,7 @@ const LoginForm = () => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="password">Contraseña</label>
+          <label htmlFor="password">Contraseña: </label>
           <input
             type="password"
             id="password"
@@ -94,7 +92,7 @@ const LoginForm = () => {
 
         {error && <div className="error-message">{error}</div>}
 
-        <button type="submit">Login</button>
+        <button type="submit">Iniciar sesión</button>
       </form>
     </div>
   );
