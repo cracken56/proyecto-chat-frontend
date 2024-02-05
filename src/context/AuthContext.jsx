@@ -4,6 +4,7 @@ import { createContext, useContext, useReducer } from 'react';
 const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
 const SET_CONTACT = 'SET_CONTACT';
+const SET_NOTIFICATION_MESSAGE = 'SET_NOTIFICATION_MESSAGE';
 
 const authReducer = (state, action) => {
   const actionHandlers = {
@@ -20,6 +21,10 @@ const authReducer = (state, action) => {
     [SET_CONTACT]: () => ({
       ...state,
       contact: action.payload.contact,
+    }),
+    [SET_NOTIFICATION_MESSAGE]: () => ({
+      ...state,
+      notificationMessage: action.payload.notificationMessage,
     }),
     // Add more action handlers if needed
   };
@@ -51,8 +56,17 @@ const AuthProvider = ({ children }) => {
     dispatch({ type: SET_CONTACT, payload: { contact } });
   };
 
+  const setNotificationMessage = (notificationMessage) => {
+    dispatch({
+      type: SET_NOTIFICATION_MESSAGE,
+      payload: { notificationMessage },
+    });
+  };
+
   return (
-    <AuthContext.Provider value={{ ...state, login, logout, setContact }}>
+    <AuthContext.Provider
+      value={{ ...state, login, logout, setContact, setNotificationMessage }}
+    >
       {children}
     </AuthContext.Provider>
   );

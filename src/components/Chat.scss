@@ -35,20 +35,23 @@
       background-color: #e0f7fa;
       border-radius: 15px;
       padding: 10px;
+      max-width: 50vh;
 
-      .bubble-body {
+      .bubble-info {
         display: flex;
-        justify-content: space-between;
-        gap: 1rem;
+        justify-content: flex-end;
+        gap: 0.25rem;
 
         .timestamp {
+          font-size: 0.75rem;
           color: #757575;
-          align-self: flex-end;
         }
+      }
 
-        .bubble-text {
-          // Add styling for the text
-        }
+      .bubble-text {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        max-width: 100%;
       }
     }
   }
@@ -62,21 +65,24 @@
       background-color: #ffecb3;
       border-radius: 15px;
       padding: 10px;
+      margin-left: auto;
+      max-width: 50vh;
 
-      .bubble-body {
+      .bubble-info {
         display: flex;
-        justify-content: space-between;
-        gap: 1rem;
+        justify-content: flex-end;
+        gap: 0.25rem;
 
         .timestamp {
           font-size: 0.75rem;
           color: #757575;
-          align-self: flex-end;
         }
+      }
 
-        .bubble-text {
-          // Add styling for the text
-        }
+      .bubble-text {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        max-width: 100%;
       }
     }
   }

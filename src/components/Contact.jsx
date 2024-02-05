@@ -7,8 +7,6 @@ import {
   collection,
   query,
   where,
-  // orderBy,
-  // getDoc,
   getDocs,
 } from 'firebase/firestore';
 
@@ -19,8 +17,8 @@ import './Contact.scss';
 
 const Contact = ({ name }) => {
   const [unreadAmount, setUnreadAmount] = useState(0);
-  const [lastUnreadMessage, setLastUnreadMessage] = useState('');
-  const { user, contact, setContact } = useAuth();
+  const [lastMessage, setLastMessage] = useState('');
+  const { user, setContact } = useAuth();
 
   useEffect(() => {
     let unsubscribe;
@@ -45,14 +43,16 @@ const Contact = ({ name }) => {
 
           unsubscribe = onSnapshot(conversationRef, (snapshot) => {
             const messages = snapshot.data().messages;
-            const unreadMessages = messages
-              .filter(
-                (message) => message.readBy && message.readBy[user] === false
-              )
-              .sort((a, b) => b.timestamp - a.timestamp);
+            if (!messages) return;
+            const sortedMessages = messages
+              .sort((a, b) => b.timestamp - a.timestamp)
+              .filter((message) => message.sender && message.sender === name);
+            const unreadMessages = sortedMessages.filter(
+              (message) => message.readBy && message.readBy[user] === false
+            );
 
             setUnreadAmount(unreadMessages.length);
-            setLastUnreadMessage(unreadMessages[0]?.text);
+            setLastMessage(sortedMessages[0]?.text);
           });
         }
       } catch (error) {
@@ -71,11 +71,6 @@ const Contact = ({ name }) => {
 
   const handleClick = () => {
     setContact(name);
-
-    //TODO: Set all messages to read
-    // if (name == contact) {
-    //   setUnreadAmount(0);
-    // }
   };
 
   return (
@@ -83,8 +78,8 @@ const Contact = ({ name }) => {
       <div className="contact-info">
         <h3>{name}</h3>
         <div className="unread-info">
-          <span className="message">{lastUnreadMessage}</span>
-          <span className="circle">{unreadAmount}</span>
+          <span className="message">{lastMessage}</span>
+          {unreadAmount >= 1 && <span className="circle">{unreadAmount}</span>}
         </div>
       </div>
     </button>

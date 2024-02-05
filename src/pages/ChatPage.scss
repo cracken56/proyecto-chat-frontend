@@ -1,4 +1,8 @@
 .chat-page {
   display: flex;
   flex-direction: row;
+
+  .left-bar {
+    flex-direction: column;
+  }
 }

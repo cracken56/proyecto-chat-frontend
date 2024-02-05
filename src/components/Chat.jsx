@@ -5,8 +5,6 @@ import {
   collection,
   query,
   where,
-  // orderBy,
-  // getDoc,
   getDocs,
 } from 'firebase/firestore';
 
@@ -14,6 +12,9 @@ import { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { format } from 'date-fns';
 import ChatBox from './ChatBox';
+import CharmTickDouble from './CharmTickDouble';
+import CharmTick from './CharmTick';
+import axiosInstance from '../api';
 
 import './Chat.scss';
 
@@ -48,6 +49,7 @@ const Chat = () => {
 
           unsubscribe = onSnapshot(conversationRef, (snapshot) => {
             const messages = snapshot.data().messages;
+            if (!messages) return;
             const typing = snapshot.data().typing[contact];
             setMessages(messages);
             setTyping(typing);
@@ -67,6 +69,30 @@ const Chat = () => {
     };
   }, [user, contact]);
 
+  useEffect(() => {
+    updateRead();
+  }, [user, conversation, messages]);
+
+  const updateRead = async () => {
+    if (!conversation || !user) return;
+
+    try {
+      const requestData = {
+        conversationId: conversation,
+        updateRead: { reader: user },
+      };
+
+      await axiosInstance.put('/api/message', requestData);
+    } catch (error) {
+      if (error.response) {
+        const { status } = error.response;
+        if (status === 500) {
+          console.log('No se han podido actualizar los leídos.');
+        }
+      }
+    }
+  };
+
   const scrollToBottom = () => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop =
@@ -75,33 +101,25 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    adjustChatContactWidth();
-    //TODO: make this scroll to latest unread in the future(?)
     scrollToBottom();
+    adjustChatContactWidth();
   }, [messages]);
 
   const adjustChatContactWidth = () => {
-    const chatContactElements = document.querySelectorAll('.chat-contact');
+    const bubbleElements = document.querySelectorAll('.bubble');
 
-    chatContactElements.forEach((contactElement) => {
-      const bubbleTextElement = contactElement.querySelector('.bubble-text');
-      const timestampTextElement = contactElement.querySelector('.timestamp');
-      if (bubbleTextElement && timestampTextElement) {
-        const textWidth = bubbleTextElement.offsetWidth;
-        const timestampWidth = timestampTextElement.offsetWidth;
-        contactElement.style.maxWidth = `${textWidth + timestampWidth + 40}px`;
-      }
-    });
+    bubbleElements.forEach((bubble) => {
+      const bubbleText = bubble.querySelector('.bubble-text');
+      if (bubbleText) {
+        const numChars = bubbleText.textContent.length;
+        const charWidth = 12;
+        let bubbleWidth = numChars * charWidth;
 
-    const chatUserElements = document.querySelectorAll('.chat-user');
+        const maxWidth = window.innerHeight * 0.5;
+        const minWidth = 50;
+        bubbleWidth = Math.max(minWidth, Math.min(bubbleWidth, maxWidth));
 
-    chatUserElements.forEach((userElement) => {
-      const bubbleTextElement = userElement.querySelector('.bubble-text');
-      const timestampTextElement = userElement.querySelector('.timestamp');
-      if (bubbleTextElement && timestampTextElement) {
-        const textWidth = bubbleTextElement.offsetWidth;
-        const timestampWidth = timestampTextElement.offsetWidth;
-        userElement.style.maxWidth = `${textWidth + timestampWidth + 40}px`;
+        bubble.style.maxWidth = `${bubbleWidth}px`;
       }
     });
   };
@@ -119,10 +137,18 @@ const Chat = () => {
                 }
               >
                 <div className="bubble">
-                  <div className="bubble-body">
-                    <div className="bubble-text">{message.text}</div>
+                  <div className="bubble-text">{message.text}</div>
+                  <div className="bubble-info">
                     <div className="timestamp">
                       {format(new Date(message.timestamp), 'HH:mm')}
+                    </div>
+                    <div className="bubble-read">
+                      {message.sender !== contact &&
+                        (message.sender === user && message.readBy[contact] ? (
+                          <CharmTickDouble />
+                        ) : (
+                          <CharmTick />
+                        ))}
                     </div>
                   </div>
                 </div>

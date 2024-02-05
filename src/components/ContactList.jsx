@@ -3,7 +3,7 @@ import Contact from './Contact';
 import firestore from '../firestore';
 import {
   doc,
-  // onSnapshot,
+  onSnapshot,
   // collection,
   // query,
   // where,
@@ -21,26 +21,31 @@ const ContactList = () => {
   const { user } = useAuth();
 
   useEffect(() => {
+    let unsubscribe;
     const fetchContacts = async () => {
       try {
         const userDocRef = doc(firestore, 'users', user);
-        const userDocSnapshot = await getDoc(userDocRef);
 
-        if (userDocSnapshot.exists()) {
-          const userData = userDocSnapshot.data();
-          const userContacts = userData.contacts || [];
-
-          const contactsArray = userContacts.map((user) => ({ name: user }));
-
-          setContacts(contactsArray);
-        }
+        unsubscribe = onSnapshot(userDocRef, (snapshot) => {
+          if (snapshot.exists()) {
+            const contacts = snapshot.data().contacts;
+            const contactsArray = contacts.map((user) => ({ name: user }));
+            setContacts(contactsArray);
+          }
+        });
       } catch (error) {
-        console.error('Error fetching contacts:', error);
+        console.error('Error fetching pending requests:', error);
       }
     };
 
     fetchContacts();
-  }, []);
+
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
+  }, [user]);
 
   return (
     <div className="contact-list">

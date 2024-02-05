@@ -1,0 +1,20 @@
+.requests-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #ccc;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  background-color: rgb(28, 28, 35);
+
+  .map {
+    margin-bottom: 1rem;
+  }
+
+  .close-button {
+    display: flex;
+    justify-content: space-between;
+  }
+}
