@@ -93,7 +93,9 @@ const ShowRequestsPopup = ({ onClose, onPendingRequestUpdate }) => {
             <button onClick={() => handleDecline(contact)}>Rechazar</button>
           </div>
         ))}
-        {pendingRequests.length === 0 && <span>Ninguna.</span>}
+        {(!pendingRequests || pendingRequests.length === 0) && (
+          <span>Ninguna.</span>
+        )}
       </div>
       <div className="map">
         <h2>Solicitudes enviadas</h2>
@@ -102,7 +104,7 @@ const ShowRequestsPopup = ({ onClose, onPendingRequestUpdate }) => {
             <span>{contact}</span>
           </div>
         ))}
-        {sentRequests.length === 0 && <span>Ninguna.</span>}
+        {(!sentRequests || sentRequests.length === 0) && <span>Ninguna.</span>}
       </div>
       <button className="close-button" onClick={onClose}>
         Close
