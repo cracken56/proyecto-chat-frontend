@@ -21,7 +21,11 @@ const ChatBox = ({ conversationId, sender, contact }) => {
     try {
       const data = {
         conversationId,
-        message: { text, sender, readBy: { [sender]: true, [contact]: false } },
+        message: {
+          text,
+          sender: sender,
+          readBy: { [sender]: true, [contact]: false },
+        },
       };
 
       await axiosInstance.put('/api/message', data);
