@@ -44,7 +44,6 @@ const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   const login = (user) => {
-    console.log('Auth true');
     dispatch({ type: LOGIN, payload: { user } });
   };
 
