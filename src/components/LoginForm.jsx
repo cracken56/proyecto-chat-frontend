@@ -37,6 +37,7 @@ const LoginForm = () => {
       const response = await axiosInstance.post('/api/login', requestData);
 
       const token = response.data.token;
+      Cookies.remove('userToken');
       Cookies.set('userToken', token);
 
       // Set auth to logged in

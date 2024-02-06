@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getCookie } from './utils';
+import Cookies from 'js-cookie';
 
 const axiosInstance = axios.create({
   baseURL: 'https://proyecto-chat-backend-zkbiwn4p4q-no.a.run.app',
@@ -7,7 +7,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = getCookie('userToken');
+    const token = Cookies.get('userToken');
     config.headers['Authorization'] = `Bearer ${token}`;
 
     return config;
