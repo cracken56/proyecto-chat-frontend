@@ -58,6 +58,8 @@ const ShowRequestsPopup = ({ onClose, onPendingRequestUpdate }) => {
           console.log('No se ha podido aceptar la solicitud de contacto.');
         }
       }
+    } finally {
+      onClose();
     }
   };
 

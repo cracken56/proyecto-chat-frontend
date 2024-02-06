@@ -36,10 +36,10 @@ const AddContactPopup = ({ onClose }) => {
         }
         setNotificationMessage(errorMsg);
       }
+    } finally {
+      onClose();
+      setNewContact('');
     }
-
-    onClose();
-    setNewContact('');
   };
 
   return (
