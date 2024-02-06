@@ -21,7 +21,7 @@ const ShowRequestsPopup = ({ onClose, onPendingRequestUpdate }) => {
           if (snapshot.exists()) {
             const pendingRequests = snapshot.data().contactRequests;
             setPendingRequests(pendingRequests);
-            onPendingRequestUpdate(pendingRequests.length);
+            pendingRequests && onPendingRequestUpdate(pendingRequests.length);
             const sentRequests = snapshot.data().sentRequests;
             setSentRequests(sentRequests);
           }
