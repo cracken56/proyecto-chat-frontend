@@ -4,6 +4,7 @@ import firestore from '../firestore';
 import { doc, onSnapshot } from 'firebase/firestore';
 import axiosInstance from '../api';
 import { useAuth } from '../context/AuthContext';
+
 import './ShowRequestsPopup.scss';
 
 const ShowRequestsPopup = ({ onClose, onPendingRequestUpdate }) => {

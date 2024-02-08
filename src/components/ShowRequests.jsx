@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import ShowRequestsPopup from './ShowRequestsPopup';
 
+import './ShowRequests.scss';
+
 const ShowRequests = () => {
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [pendingRequests, setPendingRequests] = useState(undefined);
