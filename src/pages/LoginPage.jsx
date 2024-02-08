@@ -3,6 +3,8 @@ import { useState } from 'react';
 import RegistrationForm from '../components/RegistrationForm';
 import LoginForm from '../components/LoginForm';
 
+import './LoginPage.scss';
+
 const LoginPage = () => {
   const [showLogin, setShowLogin] = useState(true);
 
@@ -11,7 +13,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
+    <div className="login-page">
       <h1>Bienvenid@</h1>
       {showLogin ? (
         <div>
