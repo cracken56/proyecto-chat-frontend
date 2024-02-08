@@ -3,14 +3,14 @@ import './AddContact.scss';
 import AddContactPopup from './AddContactPopup';
 
 const AddContact = () => {
-  const [isPopupOpen, setPopupOpen] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const openPopup = () => {
-    setPopupOpen(true);
+    setIsPopupOpen(true);
   };
 
   const closePopup = () => {
-    setPopupOpen(false);
+    setIsPopupOpen(false);
   };
 
   return (

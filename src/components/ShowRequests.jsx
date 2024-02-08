@@ -4,15 +4,15 @@ import ShowRequestsPopup from './ShowRequestsPopup';
 import './ShowRequests.scss';
 
 const ShowRequests = () => {
-  const [isPopupOpen, setPopupOpen] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [pendingRequests, setPendingRequests] = useState(undefined);
 
   const openPopup = () => {
-    setPopupOpen(true);
+    setIsPopupOpen(true);
   };
 
   const closePopup = () => {
-    setPopupOpen(false);
+    setIsPopupOpen(false);
   };
 
   const handlePendingRequestUpdate = (pendingRequests) => {

@@ -20,7 +20,6 @@ function App() {
           path="/chat"
           element={isAuthenticated ? <ChatPage /> : <Navigate to="/" />}
         />
-        {/* Add more routes as needed */}
       </Routes>
     </Router>
   );

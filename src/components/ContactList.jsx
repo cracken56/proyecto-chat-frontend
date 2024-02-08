@@ -1,15 +1,7 @@
 import Contact from './Contact';
 
 import firestore from '../firestore';
-import {
-  doc,
-  onSnapshot,
-  // collection,
-  // query,
-  // where,
-  // orderBy,
-  getDoc,
-} from 'firebase/firestore';
+import { doc, onSnapshot } from 'firebase/firestore';
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
@@ -52,8 +44,8 @@ const ContactList = () => {
   return (
     <div className="contact-list">
       {contacts &&
-        contacts.map((contact, index) => (
-          <Contact key={index} name={contact.name} />
+        contacts.map((contact) => (
+          <Contact key={contact.name} name={contact.name} />
         ))}
     </div>
   );
