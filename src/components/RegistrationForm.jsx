@@ -71,47 +71,43 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div className="registration-form">
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="user">Usuario: </label>
-          <input
-            type="text"
-            id="user"
-            name="user"
-            value={formData.user}
-            onChange={handleChange}
-            required
-          />
-        </div>
+    <div>
+      <form className="form" onSubmit={handleSubmit}>
+        <label htmlFor="user">Usuario: </label>
+        <input
+          type="text"
+          id="user"
+          name="user"
+          value={formData.user}
+          onChange={handleChange}
+          required
+        />
 
-        <div className="form-group">
-          <label htmlFor="password">Contraseña: </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
+        <label htmlFor="password">Contraseña: </label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+        />
 
-        <div className="form-group">
-          <label htmlFor="confirmPassword">Confirmar contraseña: </label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            required
-          />
-        </div>
+        <label htmlFor="confirmPassword">Confirmar contraseña: </label>
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          value={formData.confirmPassword}
+          onChange={handleChange}
+          required
+        />
 
         {error && <div className="error-message">{error}</div>}
 
-        <button type="submit">Registrarse</button>
+        <button className="button" type="submit">
+          Registrarse
+        </button>
       </form>
     </div>
   );

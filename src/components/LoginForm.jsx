@@ -66,34 +66,31 @@ const LoginForm = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="user">Usuario: </label>
-          <input
-            type="text"
-            id="user"
-            name="user"
-            value={formData.user}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="password">Contraseña: </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
+      <form className="form" onSubmit={handleSubmit}>
+        <label htmlFor="user">Usuario: </label>
+        <input
+          type="text"
+          id="user"
+          name="user"
+          value={formData.user}
+          onChange={handleChange}
+          required
+        />
+        <label htmlFor="password">Contraseña: </label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+        />
 
         {error && <div className="error-message">{error}</div>}
 
-        <button type="submit">Iniciar sesión</button>
+        <button className="button" type="submit">
+          Iniciar sesión
+        </button>
       </form>
     </div>
   );
