@@ -109,9 +109,7 @@ const ShowRequestsPopup = ({ onClose, onPendingRequestUpdate }) => {
         ))}
         {(!sentRequests || sentRequests.length === 0) && <span>Ninguna.</span>}
       </div>
-      <button className="close-button" onClick={onClose}>
-        Close
-      </button>
+      <button onClick={onClose}>Salir</button>
     </div>
   );
 };
