@@ -116,7 +116,7 @@ const Chat = () => {
         let bubbleWidth = numChars * charWidth;
 
         const maxWidth = window.innerHeight * 0.5;
-        const minWidth = 50;
+        const minWidth = 60;
         bubbleWidth = Math.max(minWidth, Math.min(bubbleWidth, maxWidth));
 
         bubble.style.maxWidth = `${bubbleWidth}px`;
