@@ -40,9 +40,7 @@ const LoginForm = () => {
       Cookies.remove('userToken');
       Cookies.set('userToken', token);
 
-      // Set auth to logged in
       login(formData.user);
-
       navigate('/chat');
     } catch (error) {
       if (error.response) {

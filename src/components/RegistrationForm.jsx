@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs';
 import axiosInstance from '../api';
 import Cookies from 'js-cookie';
 
+import { useAuth } from '../context/AuthContext';
 import { useReducer, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,6 +16,7 @@ const formReducer = (state, action) => {
 
 const RegistrationForm = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [formData, dispatch] = useReducer(formReducer, {
     user: '',
     password: '',
@@ -49,6 +51,7 @@ const RegistrationForm = () => {
       const token = response.data.token;
       Cookies.set('userToken', token);
 
+      login(formData.user);
       navigate('/chat');
     } catch (error) {
       if (error.response) {
