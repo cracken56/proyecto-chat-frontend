@@ -33,7 +33,7 @@ const RegistrationForm = () => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
+      setError('La contraseña no coincide.');
       return;
     }
 
