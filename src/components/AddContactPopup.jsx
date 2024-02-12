@@ -26,11 +26,7 @@ const AddContactPopup = ({ onClose }) => {
         const { status } = error.response;
         let errorMsg;
         if (status === 409) {
-          if (error.response.data.error.includes('sent')) {
-            errorMsg = 'El contacto ya te ha mandado una solicitud.';
-          } else {
-            errorMsg = 'Ya existe esa solicitud de contacto.';
-          }
+          errorMsg = error.response.data.error;
         } else if (status === 400) {
           errorMsg = 'No puedes solicitar contacto a ti mismo.';
         } else if (status === 404) {
