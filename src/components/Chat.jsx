@@ -112,11 +112,11 @@ const Chat = () => {
       const bubbleText = bubble.querySelector('.bubble-text');
       if (bubbleText) {
         const numChars = bubbleText.textContent.length;
-        const charWidth = 8;
+        const charWidth = 8.2;
         let bubbleWidth = numChars * charWidth;
 
         const maxWidth = window.innerHeight * 0.5;
-        const minWidth = 51;
+        const minWidth = 55;
         bubbleWidth = Math.max(minWidth, Math.min(bubbleWidth, maxWidth));
 
         bubble.style.maxWidth = `${bubbleWidth}px`;
