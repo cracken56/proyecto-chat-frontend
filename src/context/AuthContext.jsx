@@ -26,7 +26,6 @@ const authReducer = (state, action) => {
       ...state,
       notificationMessage: action.payload.notificationMessage,
     }),
-    // Add more action handlers if needed
   };
 
   const handler = actionHandlers[action.type];
